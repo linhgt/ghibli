@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
-import GhibliStudio from "./img/ghibli-background.jpg";
-import "./css/App.css";
+import { Route, Link,Switch, BrowserRouter as Router } from 'react-router-dom';
+import List from "./components/List.js";
+import Home from "./components/Home.js";
 
 class App extends Component{
+
     render(){
         return(
-                <div className="container">
-                    <div className="main-content">
-                         <div className="title">
-                             <h2>Welcome to</h2><h1 id="ghibli-info">Ghibli Info!</h1>
-                         </div>
-                    </div>
-                </div>
+            <Router>
+                <Switch>
+                    <Route path="/list" exact componnent={Home}/>
+                    <Route path="/" component={List}/>
+                </Switch>
+            </Router>
         )
     }
 }
