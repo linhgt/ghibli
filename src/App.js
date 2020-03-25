@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Route, Link,Switch, BrowserRouter as Router } from 'react-router-dom';
-import List from "./components/List.js";
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Home from "./components/Home.js";
+import List from "./components/List.js";
 
 class App extends Component{
 
@@ -9,8 +9,8 @@ class App extends Component{
         return(
             <Router>
                 <Switch>
-                    <Route path="/list" exact componnent={Home}/>
-                    <Route path="/" component={List}/>
+                    <Route path="/" exact component={Home}/>
+                    <Route path="/list" component={List}/>
                 </Switch>
             </Router>
         )
