@@ -78,7 +78,7 @@ class List extends Component{
         for(const [index, value] of movies.entries()){
             const rating = value.rt_score / 10;
             const picture = this.MoviePictures.get(value.title);
-        movieEntry.push(<Item key={index}><Item.Image size="small" src={picture} /><Item.Content verticalAlign="middle"><Item.Header as={Link} to="/">{value.title}</Item.Header><Item.Extra><Label>{value.release_date}</Label><Label>Rating : {rating}</Label></Item.Extra></Item.Content></Item>)
+            movieEntry.push(<Item key={index}><Item.Image size="small" src={picture} as={Link} to="/"/><Item.Content verticalAlign="middle"><Item.Header as={Link} to="/">{value.title}</Item.Header><Item.Extra><Label>{value.release_date}</Label><Label>Rating : {rating}</Label></Item.Extra></Item.Content></Item>)
         }
         return movieEntry;
         
