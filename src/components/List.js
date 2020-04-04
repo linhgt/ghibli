@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
 import {Item, Label} from "semantic-ui-react";
 import CastleInTheSky from "../img/Castle-in-the-sky.jpg";
 import FromUpOnPoppyHill from "../img/From-up-on-poppy-hill.jpg";
@@ -22,13 +21,17 @@ import TheWindRises from "../img/The-wind-rises.jpg";
 import WhisperOfTheHeart from "../img/Whisper-of-the-heart.jpg";
 import Marnie from "../img/When-marnie-was-there.jpg";
 import "../css/List.css";
+import Entry from "./Entry.js";
 
 class List extends Component{
+    //MovieList holds the list of movies fetched from Studio Ghibli API
     constructor(props){
         super(props);
         this.state={
             movieList:[],
-            isLoaded:false
+            isLoaded:false,
+            SelectedMovie:null,
+            SelectedMoviePicture:null,
         }
         this.MoviePictures = new Map();
     }
@@ -55,7 +58,7 @@ class List extends Component{
         this.MoviePictures.set("The Tale of the Princess Kaguya", PrincessKaguya);
         this.MoviePictures.set("When Marnie Was There", Marnie);
         
-
+        //Fetch the list of Ghibli's films
         fetch("https://ghibliapi.herokuapp.com/films")
             .then(res=>res.json())
             .then(
@@ -71,14 +74,25 @@ class List extends Component{
             )
     }
 
+    //Return the entry for the selected film
+    onSelectedMovie = (movie) => {
+        const picture = this.MoviePictures.get(movie.title);
+        this.setState({SelectedMovie:movie, SelectedMoviePicture:picture});
+    }
+
+    backToList = () => {
+        this.setState({SelectedMovie:null});
+    }
+
+    //Build the entries
     buildEntry = () =>{
-        const movieEntry = [];
+        var movieEntry = [];
         const movies = this.state.movieList;
 
         for(const [index, value] of movies.entries()){
             const rating = value.rt_score / 10;
             const picture = this.MoviePictures.get(value.title);
-            movieEntry.push(<Item key={index}><Item.Image size="small" src={picture} as={Link} to="/"/><Item.Content verticalAlign="middle"><Item.Header as={Link} to="/">{value.title}</Item.Header><Item.Extra><Label>{value.release_date}</Label><Label>Rating : {rating}</Label></Item.Extra></Item.Content></Item>)
+            movieEntry.push(<Item key={index}><Item.Image size="small" src={picture} as="a" onClick={()=>this.onSelectedMovie(value)}/><Item.Content verticalAlign="middle"><Item.Header as="a" onClick={() => this.onSelectedMovie(value)}>{value.title}</Item.Header><Item.Extra><Label>{value.release_date}</Label><Label>Rating : {rating}</Label></Item.Extra></Item.Content></Item>)
         }
         return movieEntry;
         
@@ -86,14 +100,16 @@ class List extends Component{
 
     render(){
         return(
-            <div className="list-container">
-                <div className="main-content" id="list">
-                    <Item.Group>
-                        {!this.state.isLoaded ? (
-                            <h3>Loading...</h3>
-                        ):(this.buildEntry())}
-                    </Item.Group>
-                </div>
+            <div>
+                {!this.state.isLoaded ? (<h3>Loading...</h3>): (this.state.SelectedMovie ? <Entry picture= {this.state.SelectedMoviePicture} movie={this.state.SelectedMovie} backToList = {this.backToList}/>:
+                    (<div className="list-container">
+                        <div className="main-content" id="list">
+                            <Item.Group divided>
+                                {this.buildEntry()}
+                            </Item.Group>
+                        </div>
+                    </div>))
+                }
             </div>
         );
     }

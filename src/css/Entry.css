@@ -34,6 +34,7 @@
     grid-row-start:2;
     grid-row-end:5;
     align-self: center;
+    top: 30px;
 }
 
 #title{
@@ -41,12 +42,34 @@
     grid-column-end:4;
     grid-row-start:2;
     grid-row-end:3;
+    justify-self: center;
+    align-self: center;
+    font: 30px/40px Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-weight: 800;
+}
+
+#director-producer{
+    grid-column-start:2;
+    grid-column-end:4;
+    grid-row-start:4;
+    grid-row-end:5;
+    align-self:center;
+    justify-self: center;
+    font-family:Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 #year-rating{
     grid-column-start:2;
-    grid-column-end:3;
+    grid-column-end:4;
     grid-row-start:3;
     grid-row-end:4;
     align-self:center;
+    justify-self: center;
+    font-family:Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.description{
+    display:block;
+    margin-top: 100px;
+    margin-bottom: 50px;
 }

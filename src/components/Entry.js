@@ -1,34 +1,33 @@
-import React, {Component} from "react";
+import React  from "react";
+import {Image, Button, Icon} from "semantic-ui-react";
 import "../css/Entry.css";
 
-class Entry extends Component{
-    constructor(props){
-        super(props)
-        this.state={
-            name:props.name,
-            description:props.description,
-            year:props.year,
-            rating:props.rating,
-            picture:props.picture,
-        }
+const Entry = ({picture, movie, backToList}) => {
+    if(!movie)
+    {
+        return <div>Error...</div>;
     }
-
-    render(){
-        return(
-            <div className="entry-container">
-                <div className ="entry-content">
-                    <div className="header-title">
-                        <div id="picture"></div>
-                        <div id="title"></div>
-                        <div id="year-rating">Year:/Rating:</div>
-                    </div>
-                    <div className="description">
-                        <p>{this.state.description}</p>
-                    </div>
+    
+    return(
+        <div className="entry-container">
+            <div className ="entry-content">
+                <div className="header-title">
+                    <Image id ="picture" src={picture} alt="pic" size="medium"/>
+                    <div id="title">{movie.title}</div>
+                    <div id="year-rating">Year:{movie.release_date}/Rating:{movie.rt_score}/100</div>
+                    <div id="director-producer">Director:{movie.director}/Producer:{movie.producer}</div>
                 </div>
+                <div className="description">
+                    <h1>Synopsis</h1>
+                    <p>{movie.description}</p>
+                </div>
+                <Button icon labelPosition="left" onClick={backToList}>
+                    Back To List
+                    <Icon name="left arrow" />
+                </Button>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default Entry;
