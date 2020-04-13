@@ -1,5 +1,5 @@
 import React  from "react";
-import {Image, Button, Icon, Grid, Header, Label} from "semantic-ui-react";
+import {Header, Segment} from "semantic-ui-react";
 import "../css/Entry.css";
 
 const Entry = ({picture, movie, backToList}) => {
@@ -11,32 +11,30 @@ const Entry = ({picture, movie, backToList}) => {
     return(
         <div className="entry-container">
             <div className ="entry-content">
-            <Grid celled >
-                <Grid.Row>
-                    <Grid.Column width={4}>
-                        <Image src={picture}/>
-                    </Grid.Column>
-                    <Grid.Column width={12}>
-                        <Header as="h1">{movie.title}</Header>
-                        <Header as="h3">Year: {movie.release_date}</Header>
-                        <Header as="h3">Director: {movie.director}</Header>
-                        <Header as="h3">Producer: {movie.producer}</Header>
-                        <Header as="h4"></Header>
-                        <Label>
-                            Rating: 
-                            <Label.Detail>{movie.rt_score}/100</Label.Detail>
-                        </Label>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-                <div className="description">
-                    <h1>Synopsis</h1>
+                <Header as="h1" dividing>
+                    {movie.title}
+                </Header>
+                <div id="main-stuff">
+                    <div id="box-info">
+                        <img src={picture} width="100%" height="auto" alt ="pic"/>
+                        <div className="box-row">
+                            <div className="box-column">
+                                <p className="Noun">Director:</p>
+                                <p className="Noun">Producer:</p>
+                                <p className="Noun">Year:</p>
+                                <p className="Noun">Rating:</p>
+                            </div>
+                            <div className="box-column">
+                                <p>{movie.director}</p>
+                                <p>{movie.producer}</p>
+                                <p>{movie.release_date}</p>
+                                <p>{movie.rt_score}/100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Synopsis:</h2>
                     <p>{movie.description}</p>
                 </div>
-                <Button icon labelPosition="left" onClick={backToList}>
-                    Back To List
-                    <Icon name="left arrow" />
-                </Button>
             </div>
         </div>
     );
