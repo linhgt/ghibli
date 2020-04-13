@@ -1,5 +1,5 @@
 import React  from "react";
-import {Header, Segment} from "semantic-ui-react";
+import {Header, Button, Icon} from "semantic-ui-react";
 import "../css/Entry.css";
 
 const Entry = ({picture, movie, backToList}) => {
@@ -34,6 +34,10 @@ const Entry = ({picture, movie, backToList}) => {
                     </div>
                     <h2>Synopsis:</h2>
                     <p>{movie.description}</p>
+                    <Button icon labelPosition='left' onClick={backToList}>
+                        <Icon name='left arrow' />
+                        Back to List
+                    </Button>
                 </div>
             </div>
         </div>
